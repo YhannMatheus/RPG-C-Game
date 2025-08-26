@@ -1,0 +1,5 @@
+# Ignorar diretório de build (arquivos objeto .o)
+/build/
+
+# Ignorar diretório de binários (executáveis)
+/bin/
