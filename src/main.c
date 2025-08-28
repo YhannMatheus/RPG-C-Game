@@ -12,6 +12,7 @@ void escolha1();
 Inimigo BOSS = {"Cavaleiro Maldito", 100, 20};
 
 void introducao(Player *jogador) {
+    clearScreen();
     printf("A Torre\n\n");
     printf("#introdução\n\n");
     printf("“Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais…” - Pensou Elric.\n\n");
@@ -71,6 +72,7 @@ void escolha2(Player *jogador) {
 
 void escolha3(Player *jogador) {
     clearScreen();
+    
     int op;
     printf("#escolha 3\n\n");
     printf("Os quatro corredores diante de si parecem chamá-lo, cada um exalando um som diferente: o tilintar de metal, um choro baixo, uma gargalhada, silêncio absoluto e o eco distante de passos.\n\n");
@@ -117,13 +119,31 @@ void escolha3(Player *jogador) {
 }
 
 int main() {
+    clearScreen();
+
     Player *jogador = malloc(sizeof(Player));
     jogador->hp = 100;
     jogador->dano = 20;
     jogador->inDefence1 = false;
     jogador->inDefence2 = false;
 
+        while(true){ 
+            printf("MENU\n");
+            printf("1 - Iniciar Jogo\n");
+            printf("2 - Sair\n");
+            printf("Opcao: ");
+            int opcao;
+            scanf("%d", &opcao);
+            getchar();  // Limpar o buffer
 
-    introducao(jogador);
+            if (opcao == 1) {
+                introducao(jogador);
+            } else {
+                printf("Saindo do jogo...\n");
+                free(jogador);
+                break;
+            }
+        }
+
     return 0;
 }

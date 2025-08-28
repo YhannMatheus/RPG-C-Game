@@ -13,14 +13,17 @@ void combatMenu(Inimigo *inimigo, Player *jogador) {
     printf("Vida do jogador: %d\n", jogador->hp);
     printf("Escolha uma ação:\n");
     printf("1 - Atacar\n");
-    printf("2 - Defender\n");
+    printf("2 - Defender\n\n\n");
 }
 
 void combate(Player *jogador, Inimigo *inimigo) {
     printf("Iniciando combate contra %s...\n", inimigo->nome);
+    
+    printf("Pressione enter para iniciar...");
+    getchar();
+
     while (jogador->hp > 0 && inimigo->hp > 0) {
-        
-        clearScreen();    
+        clearScreen();
         combatMenu(inimigo, jogador);
         
         int choice;
@@ -45,16 +48,17 @@ void combate(Player *jogador, Inimigo *inimigo) {
         } else {
             printf("Você derrotou %s!\n", inimigo->nome);
             free(inimigo);
-            return;
         }
         
         
         if (!isPlayerAlive(jogador)) {
             printf("Você foi derrotado por %s...\n", inimigo->nome);
-            exit(0);
+            break;
         }
 
-        clearScreen();
+        printf("\n\nPressione enter para continuar");
+        getchar();
+        getchar();
     }
     
 }
