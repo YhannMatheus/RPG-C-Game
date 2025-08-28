@@ -5,6 +5,4 @@
 
 void combate(Player** jogador, Inimigo** inimigo);
 
-
-
 #endif // COMBATE_H
