@@ -10,8 +10,12 @@ void attack(Player *jogador, Inimigo *inimigo) {
         printf("%s foi derrotado!\n", inimigo->nome);
     }
 
-    inimigo->hp -= jogador->dano;
-    printf("\nO jogador ataca %s e causa %d de dano!\n", inimigo->nome, jogador->dano);
+    if(rand() % 100 > 60){
+        inimigo -> hp -= jogador -> dano;
+        printf("\nO jogador ataca %s e causa %d de dano!\n", inimigo -> nome, jogador -> dano);
+    }else{
+        printf("\nO jogador tentou atacar mas errou!\n");
+    }
 }
 
 void defense(Player *jogador) {

@@ -38,14 +38,16 @@ Inimigo* generateEnemy(char nome[50]){
     Inimigo *inimigo = malloc(sizeof(Inimigo));
     
     strncpy(inimigo->nome, nome, 50);
-    inimigo->hp = 100;
-    inimigo->dano = rand() % 15;
+    inimigo -> hp = 100;
+    inimigo -> dano = rand() % 20;
     return inimigo;
 }
 
 void sortEnemyAction(Inimigo *inimigo, Player *jogador){
     srand(time(NULL));
-    int action = rand() % 1;
+    
+    int action = rand() % 2;
+    
     switch(action) {
         case 0:
             enemyAttack(inimigo, jogador);
