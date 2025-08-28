@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "player.h"
+#include "inimigo.h"
 #include "combate.h"
 #include "utils.h"
 
@@ -8,18 +9,22 @@ void escolha3();
 void escolha2();
 void escolha1();
 
-void introducao(Player *jogador) {
-    printSlow("A Torre\n\n", 30000);
-    printSlow("#introdução\n\n", 30000);
-    printSlow("“Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais…” - Pensou Elric.\n\n", 30000);
-    printSlow("Ele estava lá há semanas, talvez meses, procurando algo, algo que começava a se esquecer… As memórias começavam a se afogar nos contornos e entornos das escadas que levam cada vez mais fundo aos calabouços da torre.\n\n", 30000);
-    printSlow("A Torre de Valac surgiu no meio do reino de Gilmore, com a maldição de um cavaleiro executado por genocídio. O rei então decidiu fazer uso dessa sina que manchou o reino, utilizando-a para a prisão de indivíduos considerados “Cruéis para Além da Linha da Morte”. As maquinações que são utilizadas dentro da torre, e seus habitantes sobrenaturais, sempre serviram como punições viáveis para indivíduos malditos. Mas não Elric. Elric veio em sã consciência, procurando o que lhe foi tomado, a herança de sua família, seu filho, arrastado para as profundezas da torre.\n\n", 30000);
-    printSlow("Ao menos é o que Elric pensa ser a verdade…\n\n", 30000);
+Inimigo BOSS = {"Cavaleiro Maldito", 100, 20};
 
+void introducao(Player *jogador) {
+    printf("A Torre\n\n");
+    printf("#introdução\n\n");
+    printf("“Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais…” - Pensou Elric.\n\n");
+    printf("Ele estava lá há semanas, talvez meses, procurando algo, algo que começava a se esquecer… As memórias começavam a se afogar nos contornos e entornos das escadas que levam cada vez mais fundo aos calabouços da torre.\n\n");
+    printf("A Torre de Valac surgiu no meio do reino de Gilmore, com a maldição de um cavaleiro executado por genocídio. O rei então decidiu fazer uso dessa sina que manchou o reino, utilizando-a para a prisão de indivíduos considerados “Cruéis para Além da Linha da Morte”. As maquinações que são utilizadas dentro da torre, e seus habitantes sobrenaturais, sempre serviram como punições viáveis para indivíduos malditos. Mas não Elric. Elric veio em sã consciência, procurando o que lhe foi tomado, a herança de sua família, seu filho, arrastado para as profundezas da torre.\n\n");
+    printf("Ao menos é o que Elric pensa ser a verdade…\n\n");
+    printf("\n\n\npressione enter para continuar....");
+    getchar();
     escolha1(jogador);
 }
 
 void escolha1(Player *jogador) {
+    clearScreen();
     int op;
     printf("#escolha 1\n\n");
     printf("“Luz…” - Você afirma - “Estou vendo luz? Nessas profundezas?”\n");
@@ -43,6 +48,7 @@ void escolha1(Player *jogador) {
 }
 
 void escolha2(Player *jogador) {
+    clearScreen();
     int op;
     printf("#escolha 2\n\n");
     printf("Na mesa a sua frente, você avista uma garrafa do que parece ser vinho, um pão cortado, uma faca e queijo, este diferente do que tens, por não estar mofado. Copos e pratos bem postos decoram a mesa, como se esperassem por mais de uma pessoa, e como podes ver, o pão, o queijo e a bebida não estão inteiros, alguém já passou por lá. A sua barriga estremece.\n\n");
@@ -64,6 +70,7 @@ void escolha2(Player *jogador) {
 }
 
 void escolha3(Player *jogador) {
+    clearScreen();
     int op;
     printf("#escolha 3\n\n");
     printf("Os quatro corredores diante de si parecem chamá-lo, cada um exalando um som diferente: o tilintar de metal, um choro baixo, uma gargalhada, silêncio absoluto e o eco distante de passos.\n\n");
@@ -77,24 +84,28 @@ void escolha3(Player *jogador) {
 
     switch (op) {
         case 1:
+            clearScreen();
             printf("\nElric segue o corredor, espada em punho. O tilintar se torna ensurdecedor até que ele encontra uma sala circular, onde um guerreiro espectral de armadura partida golpeia o ar, como se ainda lutasse contra inimigos invisíveis. Ao perceber Elric, o espectro berra:\n“Mais um traidor que vem me atormentar!”\n\n");
             combate(jogador, generateEnemy("Guerreiro Espectral"));
             printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
             break;
         case 2:
+            clearScreen();
             printf("\nSeguindo o lamento, Elric encontra uma cela aberta. Dentro dela, uma criança espectral chora abraçada a um cadáver acorrentado. Quando Elric se aproxima, a criança ergue a cabeça e mostra olhos vazios.\n“Você… devolva meu pai…”\n\n");
             combate(jogador, generateEnemy("Criança Espectral"));
             printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
             break;
         case 3:
+            clearScreen();
             printf("\nO corredor o leva a uma grande sala onde esqueletos dançam em círculo, rindo e gargalhando de sua própria miséria. Assim que percebem Elric, todos sacam espadas enferrujadas, gritando profanidades e chacotas contra o cavaleiro.\n\n");
             combate(jogador, generateEnemy("Esqueletos Dançantes"));
             printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
             break;
         case 4:
+            clearScreen();
             printf("\nNo caminho mais escuro, Elric sente o ar ficar pesado. Ao final do corredor, há um espelho negro. Quando ele olha para o reflexo, não vê a si mesmo, mas um cavaleiro em armadura negra, coberta de sangue. O reflexo ergue a espada e avança para fora do espelho.\n");
             printf("Ele vê O Cavaleiro Maldito, aquele a quem ele caçava, por ter levado seu filho perdido.\n\n");
-            combate(jogador, generateEnemy("Cavaleiro Maldito"));
+            combate(jogador, &BOSS);
             printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
             printf("Fim da jornada.\n");
             exit(0);
@@ -107,12 +118,11 @@ void escolha3(Player *jogador) {
 
 int main() {
     Player *jogador = malloc(sizeof(Player));
-    jogador->hp = 20;
-    jogador->dano = 5;
+    jogador->hp = 100;
+    jogador->dano = 20;
     jogador->inDefence1 = false;
     jogador->inDefence2 = false;
 
-    Inimigo BOSS = {"Cavaleiro Maldito", 100, 20};
 
     introducao(jogador);
     return 0;

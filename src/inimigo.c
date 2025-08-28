@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
+#include <stdio.h>
+#include <string.h>
 #include "inimigo.h"
 #include "player.h"
 #include "utils.h"
@@ -32,9 +34,10 @@ void enemyRegenerate(Inimigo *inimigo) {
     }
 }
 
-Inimigo* generateEnemy(char nome[25]){
+Inimigo* generateEnemy(char nome[50]){
     Inimigo *inimigo = malloc(sizeof(Inimigo));
-    strncpy(inimigo->nome, nome, 25);
+    
+    strncpy(inimigo->nome, nome, 50);
     inimigo->hp = 100;
     inimigo->dano = rand() % 15;
     return inimigo;

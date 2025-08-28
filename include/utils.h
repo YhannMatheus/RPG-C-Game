@@ -5,3 +5,5 @@ typedef unsigned int useconds_t;
 
 int chance();
 void printSlow(const char *texto, useconds_t delay);
+
+void clearScreen();

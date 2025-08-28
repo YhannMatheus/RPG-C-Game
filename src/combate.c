@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "player.h"
 #include "inimigo.h"
+#include "utils.h"
 
 void combatMenu(Inimigo *inimigo, Player *jogador) {
     printf("Combate contra %s!\n", inimigo->nome);
@@ -13,14 +14,13 @@ void combatMenu(Inimigo *inimigo, Player *jogador) {
     printf("Escolha uma ação:\n");
     printf("1 - Atacar\n");
     printf("2 - Defender\n");
-    printf("3 - Usar item\n");
-    printf("4 - Fugir\n");
 }
 
 void combate(Player *jogador, Inimigo *inimigo) {
     printf("Iniciando combate contra %s...\n", inimigo->nome);
     while (jogador->hp > 0 && inimigo->hp > 0) {
         
+        clearScreen();    
         combatMenu(inimigo, jogador);
         
         int choice;
@@ -34,17 +34,10 @@ void combate(Player *jogador, Inimigo *inimigo) {
             case 2:
                 defense(jogador);
                 break;
-            case 3:
-                printf("Uso de itens ainda não implementado.\n");
-                break;
-            case 4:
-                printf("Você fugiu do combate!\n");
-                return;
             default:
                 printf("Opção inválida. Tente novamente.\n");
                 continue;
         }
-
 
         if (inimigo->hp > 0) {  
             sortEnemyAction(inimigo, jogador);
@@ -54,6 +47,14 @@ void combate(Player *jogador, Inimigo *inimigo) {
             free(inimigo);
             return;
         }
+        
+        
+        if (!isPlayerAlive(jogador)) {
+            printf("Você foi derrotado por %s...\n", inimigo->nome);
+            exit(0);
+        }
+
+        clearScreen();
     }
     
 }
