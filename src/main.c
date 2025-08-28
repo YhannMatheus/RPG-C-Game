@@ -3,15 +3,11 @@
 #include "player.h"
 #include "combate.h"
 
-
-Player elric = {20, 5}; // Vida inicial e dano do herói
-
-// Escolhas do jogo
 void escolha3();
 void escolha2();
 void escolha1();
 
-void introducao() {
+void introducao(Player *jogador) {
     printf("A Torre\n\n");
     printf("#introdução\n\n");
     printf("“Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais…” - Pensou Elric.\n\n");
@@ -19,10 +15,10 @@ void introducao() {
     printf("A Torre de Valac surgiu no meio do reino de Gilmore, com a maldição de um cavaleiro executado por genocídio. O rei então decidiu fazer uso dessa sina que manchou o reino, utilizando-a para a prisão de indivíduos considerados “Cruéis para Além da Linha da Morte”. As maquinações que são utilizadas dentro da torre, e seus habitantes sobrenaturais, sempre serviram como punições viáveis para indivíduos malditos. Mas não Elric. Elric veio em sã consciência, procurando o que lhe foi tomado, a herança de sua família, seu filho, arrastado para as profundezas da torre.\n\n");
     printf("Ao menos é o que Elric pensa ser a verdade…\n\n");
 
-    escolha1();
+    escolha1(jogador);
 }
 
-void escolha1() {
+void escolha1(Player *jogador) {
     int op;
     printf("#escolha 1\n\n");
     printf("“Luz…” - Você afirma - “Estou vendo luz? Nessas profundezas?”\n");
@@ -37,7 +33,7 @@ void escolha1() {
         printf("\nVocê desce mais as escadas, direcionando-se para a luz que avistou anteriormente.\n");
         printf("Hesitante, cada passo em sua direção lhe faz temer pelo que está à frente.\n");
         printf("Ao chegar no fundo, você olha ao redor, e não acredita no que está observando. Uma tocha, pregada numa parede, ilumina a sala conectada à outros 4 corredores. No meio, uma mesa com a nota “Coma e beba.” escrito com letras formais e bem caligrafadas. Não há dúvidas, alguém o esperava.\n\n");
-        escolha2();
+        escolha2(jogador);
     } else {
         printf("\n“Não vale a pena, há salteadores demais por essas bandas, estaria arriscando minha vida por uma falsa esperança” - Pensa Elric, voltando atrás para o caminho de onde veio.\n");
         printf("No fim, Elric fica perpetuamente preso, deixado na Torre que engoliu tantos outros em sua escuridão.\n");
@@ -45,7 +41,7 @@ void escolha1() {
     }
 }
 
-void escolha2() {
+void escolha2(Player *jogador) {
     int op;
     printf("#escolha 2\n\n");
     printf("Na mesa a sua frente, você avista uma garrafa do que parece ser vinho, um pão cortado, uma faca e queijo, este diferente do que tens, por não estar mofado. Copos e pratos bem postos decoram a mesa, como se esperassem por mais de uma pessoa, e como podes ver, o pão, o queijo e a bebida não estão inteiros, alguém já passou por lá. A sua barriga estremece.\n\n");
@@ -60,13 +56,13 @@ void escolha2() {
         printf("Após se saciar, Elric sente suas forças retornarem, mas também um frio estranho subir-lhe pela espinha. “Magia...” — pensa Elric, cerrando os dentes. — “Essa torre não brinca comigo sem motivo.”\n\n");
     } else {
         printf("\nVocê decide não se arriscar, recusando o banquete e aceitando a dor em sua barriga. Mas a escolha não vem sem consequências. A dor começa a ser muito forte, fazendo com que sofras (2) de dano.\n");
-        elric.hp -= 2;
+        jogador->hp -= 2;
     }
 
-    escolha3();
+    escolha3(jogador);
 }
 
-void escolha3() {
+void escolha3(Player *jogador) {
     int op;
     printf("#escolha 3\n\n");
     printf("Os quatro corredores diante de si parecem chamá-lo, cada um exalando um som diferente: o tilintar de metal, um choro baixo, uma gargalhada, silêncio absoluto e o eco distante de passos.\n\n");
@@ -81,34 +77,40 @@ void escolha3() {
     switch (op) {
         case 1:
             printf("\nElric segue o corredor, espada em punho. O tilintar se torna ensurdecedor até que ele encontra uma sala circular, onde um guerreiro espectral de armadura partida golpeia o ar, como se ainda lutasse contra inimigos invisíveis. Ao perceber Elric, o espectro berra:\n“Mais um traidor que vem me atormentar!”\n\n");
-            combate("Espectro Vingativo", 15, 4);
+            combate(jogador, generateEnemy());
             printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
             break;
         case 2:
             printf("\nSeguindo o lamento, Elric encontra uma cela aberta. Dentro dela, uma criança espectral chora abraçada a um cadáver acorrentado. Quando Elric se aproxima, a criança ergue a cabeça e mostra olhos vazios.\n“Você… devolva meu pai…”\n\n");
-            combate("Correntes Amaldiçoadas", 10, 2);
+            combate(jogador, generateEnemy());
             printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
             break;
         case 3:
             printf("\nO corredor o leva a uma grande sala onde esqueletos dançam em círculo, rindo e gargalhando de sua própria miséria. Assim que percebem Elric, todos sacam espadas enferrujadas, gritando profanidades e chacotas contra o cavaleiro.\n\n");
-            combate("Esqueletos", 20, 3);
+            combate(jogador, generateEnemy());
             printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
             break;
         case 4:
             printf("\nNo caminho mais escuro, Elric sente o ar ficar pesado. Ao final do corredor, há um espelho negro. Quando ele olha para o reflexo, não vê a si mesmo, mas um cavaleiro em armadura negra, coberta de sangue. O reflexo ergue a espada e avança para fora do espelho.\n");
             printf("Ele vê O Cavaleiro Maldito, aquele a quem ele caçava, por ter levado seu filho perdido.\n\n");
-            combate("O Cavaleiro Maldito", 30, 6);
+            combate(jogador, generateEnemy());
             printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
             printf("Fim da jornada.\n");
             exit(0);
             break;
         default:
             printf("Opcao invalida.\n");
-            escolha3();
+            escolha3(jogador);
     }
 }
 
 int main() {
-    introducao();
+    Player *jogador = malloc(sizeof(Player));
+    jogador->hp = 20;
+    jogador->dano = 5;
+    jogador->inDefence1 = false;
+    jogador->inDefence2 = false;
+
+    introducao(jogador);
     return 0;
 }
