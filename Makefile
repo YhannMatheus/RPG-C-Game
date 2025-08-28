@@ -22,7 +22,22 @@ SOURCES = $(wildcard $(SRC_DIR)/*.c)
 OBJECTS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SOURCES))
 
 # Regra principal
-all: $(BIN_DIR)/$(TARGET)
+SDL2_CHECK := $(shell pkg-config --exists sdl2 && echo OK)
+SDL2_MIXER_CHECK := $(shell pkg-config --exists SDL2_mixer && echo OK)
+
+deps:
+ifeq ($(SDL2_CHECK),OK)
+ifeq ($(SDL2_MIXER_CHECK),OK)
+	@echo "SDL2 e SDL2_mixer já instalados."
+else
+	bash setup_dependencies.sh
+endif
+else
+	bash setup_dependencies.sh
+endif
+
+all: deps
+	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
 
 # Regra para criar o executável final
 $(BIN_DIR)/$(TARGET): $(OBJECTS)

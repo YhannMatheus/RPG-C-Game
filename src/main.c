@@ -4,6 +4,8 @@
 #include "inimigo.h"
 #include "combate.h"
 #include "utils.h"
+#include "musica.h"
+
 
 void escolha3();
 void escolha2();
@@ -144,6 +146,5 @@ int main() {
                 break;
             }
         }
-
     return 0;
 }
