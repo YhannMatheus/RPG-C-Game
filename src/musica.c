@@ -20,9 +20,9 @@ int inicializar_audio() {
     }
     
     // Carrega as músicas silenciosamente
-    musica_chefe = Mix_LoadMUS("Chefe.mp3");
-    musica_ambientacao = Mix_LoadMUS("Ambientação.mp3");
-    musica_combate = Mix_LoadMUS("Combate.mp3");
+    musica_chefe = Mix_LoadMUS("./sounds/Chefe.mp3");
+    musica_ambientacao = Mix_LoadMUS("./sounds/Ambientação.mp3");
+    musica_combate = Mix_LoadMUS("./sounds/Combate.mp3");
     
     // Configura volume inicial
     Mix_VolumeMusic(64);

@@ -3,6 +3,7 @@
 #include "player.h"
 #include "inimigo.h"
 #include "utils.h"
+#include "musica.h"
 
 void combatMenu(Inimigo *inimigo, Player *jogador) {
     printf("Combate contra %s!\n", inimigo->nome);
@@ -17,6 +18,7 @@ void combatMenu(Inimigo *inimigo, Player *jogador) {
 }
 
 void combate(Player *jogador, Inimigo *inimigo) {
+
     printf("Iniciando combate contra %s...\n", inimigo->nome);
     
     printf("Pressione enter para iniciar...");

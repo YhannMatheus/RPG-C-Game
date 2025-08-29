@@ -11,6 +11,12 @@ void escolha3();
 void escolha2();
 void escolha1();
 
+bool enemy_encountered1 = false;
+bool enemy_encountered2 = false;
+bool enemy_encountered3 = false;
+bool boss_encountered = false;
+
+
 Inimigo BOSS = {"Cavaleiro Maldito", 100, 20};
 
 void introducao(Player *jogador) {
@@ -89,31 +95,63 @@ void escolha3(Player *jogador) {
     switch (op) {
         case 1:
             clearScreen();
-            printf("\nElric segue o corredor, espada em punho. O tilintar se torna ensurdecedor até que ele encontra uma sala circular, onde um guerreiro espectral de armadura partida golpeia o ar, como se ainda lutasse contra inimigos invisíveis. Ao perceber Elric, o espectro berra:\n“Mais um traidor que vem me atormentar!”\n\n");
-            combate(jogador, generateEnemy("Guerreiro Espectral"));
-            printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
+                if(enemy_encountered1 == false){
+                    printf("\nElric segue o corredor, espada em punho. O tilintar se torna ensurdecedor até que ele encontra uma sala circular, onde um guerreiro espectral de armadura partida golpeia o ar, como se ainda lutasse contra inimigos invisíveis. Ao perceber Elric, o espectro berra:\n“Mais um traidor que vem me atormentar!”\n\n\n");
+                    parar_musica();
+                    tocar_musica_combate();
+                    combate(jogador, generateEnemy("Guerreiro Espectral"));
+                    printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
+                    enemy_encountered1 = true;
+                }else{
+                    printf("\nElric já enfrentou o Guerreiro Espectral antes. Ele decide seguir em frente, evitando a sala circular.");
+                    printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                    getchar();
+                }
             break;
         case 2:
             clearScreen();
-            printf("\nSeguindo o lamento, Elric encontra uma cela aberta. Dentro dela, uma criança espectral chora abraçada a um cadáver acorrentado. Quando Elric se aproxima, a criança ergue a cabeça e mostra olhos vazios.\n“Você… devolva meu pai…”\n\n");
-            combate(jogador, generateEnemy("Criança Espectral"));
-            printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
-            break;
+            if(enemy_encountered2 == false){
+                printf("\nSeguindo o lamento, Elric encontra uma cela aberta. Dentro dela, uma criança espectral chora abraçada a um cadáver acorrentado. Quando Elric se aproxima, a criança ergue a cabeça e mostra olhos vazios.\n“Você… devolva meu pai…”\n\n");
+                parar_musica();
+                tocar_musica_combate();
+                combate(jogador, generateEnemy("Criança Espectral"));
+                printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
+                enemy_encountered2 = true;
+                break;
+            }else{
+                printf("\nElric já enfrentou a Criança Espectral antes. Ele decide seguir em frente, evitando a cela.");
+                printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                getchar();
+            }
         case 3:
             clearScreen();
-            printf("\nO corredor o leva a uma grande sala onde esqueletos dançam em círculo, rindo e gargalhando de sua própria miséria. Assim que percebem Elric, todos sacam espadas enferrujadas, gritando profanidades e chacotas contra o cavaleiro.\n\n");
-            combate(jogador, generateEnemy("Esqueletos Dançantes"));
-            printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
-            break;
+            if(enemy_encountered3 == false){    
+                printf("\nO corredor o leva a uma grande sala onde esqueletos dançam em círculo, rindo e gargalhando de sua própria miséria. Assim que percebem Elric, todos sacam espadas enferrujadas, gritando profanidades e chacotas contra o cavaleiro.\n\n");
+                parar_musica();
+                tocar_musica_combate();
+                combate(jogador, generateEnemy("Esqueletos Dançantes"));
+                printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
+                enemy_encountered3 = true;
+                break;
+            } else{
+                printf("\nElric já enfrentou os Esqueletos Dançantes antes. Ele decide seguir em frente, evitando a sala.");
+                printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                getchar();
+            }
+
         case 4:
             clearScreen();
-            printf("\nNo caminho mais escuro, Elric sente o ar ficar pesado. Ao final do corredor, há um espelho negro. Quando ele olha para o reflexo, não vê a si mesmo, mas um cavaleiro em armadura negra, coberta de sangue. O reflexo ergue a espada e avança para fora do espelho.\n");
-            printf("Ele vê O Cavaleiro Maldito, aquele a quem ele caçava, por ter levado seu filho perdido.\n\n");
-            combate(jogador, &BOSS);
-            printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
-            printf("Fim da jornada.\n");
-            exit(0);
-            break;
+            if(boss_encountered == false){               
+                printf("\nNo caminho mais escuro, Elric sente o ar ficar pesado. Ao final do corredor, há um espelho negro. Quando ele olha para o reflexo, não vê a si mesmo, mas um cavaleiro em armadura negra, coberta de sangue. O reflexo ergue a espada e avança para fora do espelho.\n");
+                printf("Ele vê O Cavaleiro Maldito, aquele a quem ele caçava, por ter levado seu filho perdido.\n\n");
+                parar_musica();
+                tocar_musica_chefe();
+                combate(jogador, &BOSS);
+                printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
+                printf("Fim da jornada.\n");
+                exit(0);
+                break;
+            }
         default:
             printf("Opcao invalida.\n");
             escolha3(jogador);
@@ -122,29 +160,35 @@ void escolha3(Player *jogador) {
 
 int main() {
     clearScreen();
-
+    inicializar_audio();
     Player *jogador = malloc(sizeof(Player));
     jogador->hp = 100;
     jogador->dano = 20;
     jogador->inDefence1 = false;
     jogador->inDefence2 = false;
 
-        while(true){ 
-            printf("MENU\n");
-            printf("1 - Iniciar Jogo\n");
-            printf("2 - Sair\n");
-            printf("Opcao: ");
-            int opcao;
-            scanf("%d", &opcao);
-            getchar();  // Limpar o buffer
+    while(true){ 
 
-            if (opcao == 1) {
-                introducao(jogador);
-            } else {
-                printf("Saindo do jogo...\n");
-                free(jogador);
-                break;
-            }
+        tocar_musica_ambientacao();
+    
+        printf("MENU\n");
+        printf("1 - Iniciar Jogo\n");
+        printf("2 - Sair\n");
+        printf("Opcao: ");
+    
+        int opcao;
+    
+        scanf("%d", &opcao);
+    
+        getchar();  // Limpar o buffer
+
+        if (opcao == 1) {
+            introducao(jogador);
+        } else {
+            printf("Saindo do jogo...\n");
+            free(jogador);
+            break;
         }
+    }
     return 0;
 }
