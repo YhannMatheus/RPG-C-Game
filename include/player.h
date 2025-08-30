@@ -13,8 +13,13 @@ typedef struct {
 } Player;
 
 typedef struct Inimigo Inimigo;
+
 void attack(Player *jogador, Inimigo *inimigo);
+
 void defense(Player *jogador);
+
 bool isPlayerAlive(Player *jogador);
+
+void heal(Player *jogador);
 
 #endif // PLAYER_H

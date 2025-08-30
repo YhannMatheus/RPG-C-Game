@@ -39,6 +39,9 @@ void combate(Player *jogador, Inimigo *inimigo) {
             case 2:
                 defense(jogador);
                 break;
+            case 3:
+                heal(jogador);
+                break;
             default:
                 printf("Opção inválida. Tente novamente.\n");
                 continue;

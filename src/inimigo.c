@@ -9,28 +9,29 @@
 void enemyAttack(Inimigo *inimigo, Player *jogador) {
     if (chance() < 50) {
         if(jogador -> inDefence1 == true){
-            printf("%s atacou! mas o jogador se defendeu\n", inimigo->nome);
+            printf("\n%s atacou! mas o jogador se defendeu\n", inimigo->nome);
             jogador->inDefence1 = false;
         }
         else if(jogador -> inDefence2 == true && jogador -> inDefence1 == false){
-            printf("%s atacou! mas o jogador se defendeu\n", inimigo->nome);
+            printf("\n%s atacou! mas o jogador se defendeu\n", inimigo->nome);
             jogador->inDefence2 = false;
         }
         else{
-            printf("%s atacou! o jogador\n", inimigo->nome);
+            printf("\n%s atacou! o jogador\n", inimigo->nome);
             jogador->hp -= inimigo->dano;
         }
     } else {
-        printf("%s errou o ataque!\n", inimigo->nome);
+        printf("\n%s errou o ataque!\n", inimigo->nome);
     }
 }
 
 void enemyRegenerate(Inimigo *inimigo) {
-    if (chance() < 30) {
-        inimigo->hp += 10;
-        printf("%s se regenerou em 10 pontos de vida!\n", inimigo->nome);
+    int heal = (rand() % 20) + 5;
+    if (chance() < 50) {
+        inimigo->hp += heal;
+        printf("\n%s se regenerou em %d pontos de vida!\n", inimigo->nome, heal);
     } else {
-        printf("%s tentou se regenerar, mas falhou!\n", inimigo->nome);
+        printf("\n%s tentou se regenerar, mas falhou!\n", inimigo->nome);
     }
 }
 
@@ -46,10 +47,13 @@ Inimigo* generateEnemy(char nome[50]){
 void sortEnemyAction(Inimigo *inimigo, Player *jogador){
     srand(time(NULL));
     
-    int action = rand() % 2;
+    int action = rand() % 3;
     
     switch(action) {
         case 0:
+            enemyAttack(inimigo, jogador);
+            break;
+        case 2:
             enemyAttack(inimigo, jogador);
             break;
         case 1:

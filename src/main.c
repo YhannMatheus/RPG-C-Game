@@ -7,9 +7,10 @@
 #include "musica.h"
 
 
-void escolha3();
-void escolha2();
-void escolha1();
+void cena3();
+void cena2();
+void cena1();
+void cena4();
 
 bool enemy_encountered1 = false;
 bool enemy_encountered2 = false;
@@ -17,7 +18,7 @@ bool enemy_encountered3 = false;
 bool boss_encountered = false;
 
 
-Inimigo BOSS = {"Cavaleiro Maldito", 100, 20};
+Inimigo BOSS = {"Cavaleiro Maldito", 150, 30};
 
 void introducao(Player *jogador) {
     clearScreen();
@@ -29,13 +30,13 @@ void introducao(Player *jogador) {
     printf("Ao menos é o que Elric pensa ser a verdade…\n\n");
     printf("\n\n\npressione enter para continuar....");
     getchar();
-    escolha1(jogador);
+    cena1(jogador);
 }
 
-void escolha1(Player *jogador) {
+void cena1(Player *jogador) {
     clearScreen();
     int op;
-    printf("#escolha 1\n\n");
+    printf("#cena 1\n\n");
     printf("“Luz…” - Você afirma - “Estou vendo luz? Nessas profundezas?”\n");
     printf("A luz de uma pequena centelha de fogo é avistada um pouco abaixo de onde o aventureiro se localiza… Talvez um abrigo? Ou os restos de um outro prisioneiro? Você pode descer, ou voltar para a escuridão atrás de ti, arriscando mais um dia dentro desse labirinto.\n\n");
 
@@ -48,7 +49,7 @@ void escolha1(Player *jogador) {
         printf("\nVocê desce mais as escadas, direcionando-se para a luz que avistou anteriormente.\n");
         printf("Hesitante, cada passo em sua direção lhe faz temer pelo que está à frente.\n");
         printf("Ao chegar no fundo, você olha ao redor, e não acredita no que está observando. Uma tocha, pregada numa parede, ilumina a sala conectada à outros 4 corredores. No meio, uma mesa com a nota “Coma e beba.” escrito com letras formais e bem caligrafadas. Não há dúvidas, alguém o esperava.\n\n");
-        escolha2(jogador);
+        cena2(jogador);
     } else {
         printf("\n“Não vale a pena, há salteadores demais por essas bandas, estaria arriscando minha vida por uma falsa esperança” - Pensa Elric, voltando atrás para o caminho de onde veio.\n");
         printf("No fim, Elric fica perpetuamente preso, deixado na Torre que engoliu tantos outros em sua escuridão.\n");
@@ -56,10 +57,10 @@ void escolha1(Player *jogador) {
     }
 }
 
-void escolha2(Player *jogador) {
+void cena2(Player *jogador) {
     clearScreen();
     int op;
-    printf("#escolha 2\n\n");
+    printf("#cena 2\n\n");
     printf("Na mesa a sua frente, você avista uma garrafa do que parece ser vinho, um pão cortado, uma faca e queijo, este diferente do que tens, por não estar mofado. Copos e pratos bem postos decoram a mesa, como se esperassem por mais de uma pessoa, e como podes ver, o pão, o queijo e a bebida não estão inteiros, alguém já passou por lá. A sua barriga estremece.\n\n");
 
     printf("1 - Comer do banquete\n");
@@ -75,19 +76,19 @@ void escolha2(Player *jogador) {
         jogador->hp -= 2;
     }
 
-    escolha3(jogador);
+    cena3(jogador);
 }
 
-void escolha3(Player *jogador) {
+void cena3(Player *jogador) {
     clearScreen();
     
     int op;
-    printf("#escolha 3\n\n");
+    printf("#cena 3\n\n");
     printf("Os quatro corredores diante de si parecem chamá-lo, cada um exalando um som diferente: o tilintar de metal, um choro baixo, uma gargalhada, silêncio absoluto e o eco distante de passos.\n\n");
 
-    printf("1 - Seguir o tilintar de metal\n");
-    printf("2 - Seguir o choro baixo\n");
-    printf("3 - Seguir a gargalhada\n");
+    if(enemy_encountered1 == false) printf("1 - Seguir o tilintar de metal\n");
+    if(enemy_encountered2 == false) printf("2 - Seguir o choro baixo\n");
+    if(enemy_encountered3 == false) printf("3 - Seguir a gargalhada\n");
     printf("4 - Seguir o silêncio absoluto\n");
     printf("Opcao: ");
     scanf("%d", &op);
@@ -117,7 +118,7 @@ void escolha3(Player *jogador) {
                 combate(jogador, generateEnemy("Criança Espectral"));
                 printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
                 enemy_encountered2 = true;
-                break;
+        
             }else{
                 printf("\nElric já enfrentou a Criança Espectral antes. Ele decide seguir em frente, evitando a cela.");
                 printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
@@ -132,7 +133,7 @@ void escolha3(Player *jogador) {
                 combate(jogador, generateEnemy("Esqueletos Dançantes"));
                 printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
                 enemy_encountered3 = true;
-                break;
+        
             } else{
                 printf("\nElric já enfrentou os Esqueletos Dançantes antes. Ele decide seguir em frente, evitando a sala.");
                 printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
@@ -149,13 +150,24 @@ void escolha3(Player *jogador) {
                 combate(jogador, &BOSS);
                 printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
                 printf("Fim da jornada.\n");
-                exit(0);
-                break;
             }
         default:
             printf("Opcao invalida.\n");
-            escolha3(jogador);
+            cena3(jogador);
     }
+
+    if(boss_encountered == false){
+        cena4(jogador);
+    }
+}
+
+void cena4(Player* jogador){
+    clearScreen();
+    printf("Ao fim do confronto, Elric se vê diante de seu reflexo no espelho negro. Não é por esse caminho ao qual ele deve seguir, então ele se afasta lentamente e retorna a sala anterior.\n");
+    printf("Ele percebe que a verdadeira batalha ainda está por vir.\n");
+    printf("\n\nPressione enter para continuar ....");
+    getchar();
+    cena3(jogador);
 }
 
 int main() {
@@ -167,7 +179,7 @@ int main() {
     jogador->inDefence1 = false;
     jogador->inDefence2 = false;
 
-    while(true){ 
+    while(boss_encountered == false){ 
 
         tocar_musica_ambientacao();
     
