@@ -34,7 +34,8 @@ void tocar_musica_chefe() {
     if (!musica_chefe) return;
     
     // Para música atual se estiver tocando
-    parar_musica();
+        if (musica_atual_tocando == MUSICA_CHEFE && Mix_PlayingMusic()) return; // já está tocando
+        parar_musica();
     
     // Toca a nova música em loop
     if (Mix_PlayMusic(musica_chefe, -1) == 0) {
@@ -43,20 +44,18 @@ void tocar_musica_chefe() {
 }
 
 void tocar_musica_ambientacao() {
+    if (musica_atual_tocando == MUSICA_AMBIENTACAO && Mix_PlayingMusic()) return; // já está tocando
     if (!musica_ambientacao) return;
-    
     parar_musica();
-    
     if (Mix_PlayMusic(musica_ambientacao, -1) == 0) {
         musica_atual_tocando = MUSICA_AMBIENTACAO;
     }
 }
 
 void tocar_musica_combate() {
+    if (musica_atual_tocando == MUSICA_COMBATE && Mix_PlayingMusic()) return; // já está tocando
     if (!musica_combate) return;
-    
     parar_musica();
-    
     if (Mix_PlayMusic(musica_combate, -1) == 0) {
         musica_atual_tocando = MUSICA_COMBATE;
     }

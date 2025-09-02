@@ -18,17 +18,23 @@ bool enemy_encountered3 = false;
 bool boss_encountered = false;
 
 
-Inimigo BOSS = {"Cavaleiro Maldito", 150, 30};
+Inimigo BOSS = {"Cavaleiro Maldito", 200, 45};
 
 void introducao(Player *jogador) {
     clearScreen();
-    printf("A Torre\n\n");
-    printf("#introdução\n\n");
-    printf("“Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais…” - Pensou Elric.\n\n");
-    printf("Ele estava lá há semanas, talvez meses, procurando algo, algo que começava a se esquecer… As memórias começavam a se afogar nos contornos e entornos das escadas que levam cada vez mais fundo aos calabouços da torre.\n\n");
-    printf("A Torre de Valac surgiu no meio do reino de Gilmore, com a maldição de um cavaleiro executado por genocídio. O rei então decidiu fazer uso dessa sina que manchou o reino, utilizando-a para a prisão de indivíduos considerados “Cruéis para Além da Linha da Morte”. As maquinações que são utilizadas dentro da torre, e seus habitantes sobrenaturais, sempre serviram como punições viáveis para indivíduos malditos. Mas não Elric. Elric veio em sã consciência, procurando o que lhe foi tomado, a herança de sua família, seu filho, arrastado para as profundezas da torre.\n\n");
-    printf("Ao menos é o que Elric pensa ser a verdade…\n\n");
-    printf("\n\n\npressione enter para continuar....");
+    printf("==============================\n");
+    printf("         A TORRE              \n");
+    printf("==============================\n\n");
+    printf("# Introdução\n\n");
+    printf("\"Frio. Frio demais. Esses infinitos corredores que continuam a se alastrar nas profundezas estão começando a parecer repetitivos demais...\"\n\n");
+    printf("Ele estava lá há semanas, talvez meses, procurando algo, algo que começava a se esquecer...\n");
+    printf("As memórias começavam a se afogar nos contornos e entornos das escadas que levam cada vez mais fundo aos calabouços da torre.\n\n");
+    printf("A Torre de Valac surgiu no meio do reino de Gilmore, com a maldição de um cavaleiro executado por genocídio.\n");
+    printf("O rei então decidiu fazer uso dessa sina que manchou o reino, utilizando-a para a prisão de indivíduos considerados Cruéis para Além da Linha da Morte.\n");
+    printf("As maquinações que são utilizadas dentro da torre, e seus habitantes sobrenaturais, sempre serviram como punições viáveis para indivíduos malditos.\n");
+    printf("Mas não Elric. Elric veio em sã consciência, procurando o que lhe foi tomado, a herança de sua família, seu filho, arrastado para as profundezas da torre.\n\n");
+    printf("Ao menos é o que Elric pensa ser a verdade...\n\n");
+    printf("\nPressione ENTER para continuar...\n");
     getchar();
     cena1(jogador);
 }
@@ -81,7 +87,6 @@ void cena2(Player *jogador) {
 
 void cena3(Player *jogador) {
     clearScreen();
-    
     int op;
     printf("#cena 3\n\n");
     printf("Os quatro corredores diante de si parecem chamá-lo, cada um exalando um som diferente: o tilintar de metal, um choro baixo, uma gargalhada, silêncio absoluto e o eco distante de passos.\n\n");
@@ -89,6 +94,7 @@ void cena3(Player *jogador) {
     if(enemy_encountered1 == false) printf("1 - Seguir o tilintar de metal\n");
     if(enemy_encountered2 == false) printf("2 - Seguir o choro baixo\n");
     if(enemy_encountered3 == false) printf("3 - Seguir a gargalhada\n");
+
     printf("4 - Seguir o silêncio absoluto\n");
     printf("Opcao: ");
     scanf("%d", &op);
@@ -102,9 +108,21 @@ void cena3(Player *jogador) {
                     tocar_musica_combate();
                     combate(jogador, generateEnemy("Guerreiro Espectral"));
                     printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
+                    printf("\n\n O espectro deixa para trás uma caixa com frascos de vidro contendo um liquido vermelho cheio de vida e parte de sua armadura cai ao chão.\n 'isso pode me ajudar' - pensa Elric.");
+                    jogador -> maxHp += 50;
+                    jogador -> hp += 50;
+                    jogador -> potionReleased = true;
+                    jogador -> potionQuantity += 3;
+                    
+                    
+                    printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                    getchar();
+
                     enemy_encountered1 = true;
                 }else{
+                    
                     printf("\nElric já enfrentou o Guerreiro Espectral antes. Ele decide seguir em frente, evitando a sala circular.");
+
                     printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
                     getchar();
                 }
@@ -116,9 +134,15 @@ void cena3(Player *jogador) {
                 parar_musica();
                 tocar_musica_combate();
                 combate(jogador, generateEnemy("Criança Espectral"));
-                printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\n");
+                printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\nEla deixou para trás uma lâmpada com luz azul cintilante, aparentemente afastando os espíritos desse lugar.");
+                
+                jogador -> lightReleased = true;
+                
+                printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                getchar();
+
                 enemy_encountered2 = true;
-        
+
             }else{
                 printf("\nElric já enfrentou a Criança Espectral antes. Ele decide seguir em frente, evitando a cela.");
                 printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
@@ -132,6 +156,15 @@ void cena3(Player *jogador) {
                 tocar_musica_combate();
                 combate(jogador, generateEnemy("Esqueletos Dançantes"));
                 printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
+                printf("\n\n A arma desses esqueletos cae ao chão, uma espada grande e poderosa.... Ela pode ser util");
+                
+                jogador -> chanceOfHit += 15;
+                jogador -> dano += 20;
+                
+                
+                printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
+                getchar();
+
                 enemy_encountered3 = true;
         
             } else{
@@ -150,6 +183,7 @@ void cena3(Player *jogador) {
                 combate(jogador, &BOSS);
                 printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
                 printf("Fim da jornada.\n");
+                boss_encountered = true;
             }
         default:
             printf("Opcao invalida.\n");
@@ -163,29 +197,40 @@ void cena3(Player *jogador) {
 
 void cena4(Player* jogador){
     clearScreen();
+    parar_musica();
+    tocar_musica_ambientacao();
+
     printf("Ao fim do confronto, Elric se vê diante de seu reflexo no espelho negro. Não é por esse caminho ao qual ele deve seguir, então ele se afasta lentamente e retorna a sala anterior.\n");
     printf("Ele percebe que a verdadeira batalha ainda está por vir.\n");
     printf("\n\nPressione enter para continuar ....");
+    
     getchar();
+    getchar();
+    
     cena3(jogador);
 }
 
 int main() {
     clearScreen();
     inicializar_audio();
-    Player *jogador = malloc(sizeof(Player));
-    jogador->hp = 100;
-    jogador->dano = 20;
-    jogador->inDefence1 = false;
-    jogador->inDefence2 = false;
+    
 
     while(boss_encountered == false){ 
 
         tocar_musica_ambientacao();
-    
-        printf("MENU\n");
-        printf("1 - Iniciar Jogo\n");
-        printf("2 - Sair\n");
+        Player jogador;
+        jogador = inicializarJogador();
+
+        printf("==============================\n");
+        printf("        A TORRE DE VALAC      \n");
+        printf("==============================\n");
+        printf("        RPG - C GAME          \n");
+        printf("==============================\n\n");
+        printf("Bem-vindo, aventureiro!\n");
+        printf("Escolha uma opção para começar sua jornada:\n\n");
+        printf("1 - Iniciar Nova Jornada\n");
+        printf("2 - Sair da Torre\n");
+        printf("------------------------------\n");
         printf("Opcao: ");
     
         int opcao;
@@ -195,12 +240,12 @@ int main() {
         getchar();  // Limpar o buffer
 
         if (opcao == 1) {
-            introducao(jogador);
+            introducao(&jogador);
         } else {
             printf("Saindo do jogo...\n");
-            free(jogador);
             break;
         }
     }
+    parar_musica();
     return 0;
 }

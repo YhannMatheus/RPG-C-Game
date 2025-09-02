@@ -6,15 +6,20 @@
 #include "musica.h"
 
 void combatMenu(Inimigo *inimigo, Player *jogador) {
-    printf("Combate contra %s!\n", inimigo->nome);
-    printf("Vida do inimigo: %d\n", inimigo->hp);
-    
-    printf("\n\n\n\n\n");
-    
-    printf("Vida do jogador: %d\n", jogador->hp);
+    printf("==============================\n");
+    printf("   COMBATE CONTRA %-16s\n", inimigo->nome);
+    printf("==============================\n");
+    printf("Vida do inimigo : %-4d\n", inimigo->hp);
+    printf("Vida do jogador : %-4d\n", jogador->hp);
+    printf("------------------------------\n");
     printf("Escolha uma ação:\n");
-    printf("1 - Atacar\n");
-    printf("2 - Defender\n\n\n");
+    printf("[1] Atacar\n");
+    printf("[2] Defender\n");
+    if (jogador->potionReleased)
+        printf("[3] Usar Poção     | %2d restantes\n", jogador->potionQuantity);
+    if (jogador->lightReleased)
+        printf("[4] Usar Luz       | %2d turnos restantes\n", jogador->lightCooldown);
+    printf("==============================\n");
 }
 
 void combate(Player *jogador, Inimigo *inimigo) {
@@ -47,20 +52,31 @@ void combate(Player *jogador, Inimigo *inimigo) {
                 continue;
         }
 
-        if (inimigo->hp > 0) {  
-            sortEnemyAction(inimigo, jogador);
-        
+
+        if (inimigo -> hp > 0) {  
+            if(inimigo -> stuned == false) { sortEnemyAction(inimigo, jogador); 
+            } else { 
+                enemyStunnedCont(inimigo);
+                printf("O inimigo está atordoado e não pode atacar!\n");
+            }
+
         } else {
             printf("Você derrotou %s!\n", inimigo->nome);
             free(inimigo);
         }
-        
         
         if (!isPlayerAlive(jogador)) {
             printf("Você foi derrotado por %s...\n", inimigo->nome);
             break;
         }
 
+        if (jogador -> lightCooldown > 0) {
+            cooldownLight(jogador);
+        }
+
+        parar_musica();
+        clearScreen();
+        
         printf("\n\nPressione enter para continuar");
         getchar();
         getchar();
