@@ -104,11 +104,14 @@ void cena3(Player *jogador) {
             clearScreen();
                 if(enemy_encountered1 == false){
                     printf("\nElric segue o corredor, espada em punho. O tilintar se torna ensurdecedor até que ele encontra uma sala circular, onde um guerreiro espectral de armadura partida golpeia o ar, como se ainda lutasse contra inimigos invisíveis. Ao perceber Elric, o espectro berra:\n“Mais um traidor que vem me atormentar!”\n\n\n");
-                    parar_musica();
-                    tocar_musica_combate();
+                
+                    tocar_musica(MUSICA_COMBATE);
                     combate(jogador, generateEnemy("Guerreiro Espectral"));
+                    tocar_musica(MUSICA_AMBIENTACAO);
+                
                     printf("O espírito se desfaz em pó negro, mas não antes de murmurar: “Você… foi o culpado… traidor…”\n\n");
                     printf("\n\n O espectro deixa para trás uma caixa com frascos de vidro contendo um liquido vermelho cheio de vida e parte de sua armadura cai ao chão.\n 'isso pode me ajudar' - pensa Elric.");
+                
                     jogador -> maxHp += 50;
                     jogador -> hp += 50;
                     jogador -> potionReleased = true;
@@ -131,9 +134,11 @@ void cena3(Player *jogador) {
             clearScreen();
             if(enemy_encountered2 == false){
                 printf("\nSeguindo o lamento, Elric encontra uma cela aberta. Dentro dela, uma criança espectral chora abraçada a um cadáver acorrentado. Quando Elric se aproxima, a criança ergue a cabeça e mostra olhos vazios.\n“Você… devolva meu pai…”\n\n");
-                parar_musica();
-                tocar_musica_combate();
+                
+                tocar_musica(MUSICA_COMBATE);
                 combate(jogador, generateEnemy("Criança Espectral"));
+                tocar_musica(MUSICA_AMBIENTACAO);
+                
                 printf("A criança desaparece em fumaça, gritando: “Assassino!!!”\n\nEla deixou para trás uma lâmpada com luz azul cintilante, aparentemente afastando os espíritos desse lugar.");
                 
                 jogador -> lightReleased = true;
@@ -148,13 +153,16 @@ void cena3(Player *jogador) {
                 printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
                 getchar();
             }
+            break;
         case 3:
             clearScreen();
             if(enemy_encountered3 == false){    
                 printf("\nO corredor o leva a uma grande sala onde esqueletos dançam em círculo, rindo e gargalhando de sua própria miséria. Assim que percebem Elric, todos sacam espadas enferrujadas, gritando profanidades e chacotas contra o cavaleiro.\n\n");
-                parar_musica();
-                tocar_musica_combate();
+                
+                tocar_musica(MUSICA_COMBATE);
                 combate(jogador, generateEnemy("Esqueletos Dançantes"));
+                tocar_musica(MUSICA_AMBIENTACAO);
+                
                 printf("No chão, os esqueletos se reorganizam, formando uma palavra escrita em ossos: “Genocida.”\n\n");
                 printf("\n\n A arma desses esqueletos cae ao chão, uma espada grande e poderosa.... Ela pode ser util");
                 
@@ -172,17 +180,20 @@ void cena3(Player *jogador) {
                 printf("\n\n PRESSIONE ENTER PARA CONTINUAR");
                 getchar();
             }
+            break;
 
         case 4:
             clearScreen();
             if(boss_encountered == false){               
                 printf("\nNo caminho mais escuro, Elric sente o ar ficar pesado. Ao final do corredor, há um espelho negro. Quando ele olha para o reflexo, não vê a si mesmo, mas um cavaleiro em armadura negra, coberta de sangue. O reflexo ergue a espada e avança para fora do espelho.\n");
                 printf("Ele vê O Cavaleiro Maldito, aquele a quem ele caçava, por ter levado seu filho perdido.\n\n");
-                parar_musica();
-                tocar_musica_chefe();
+                
+                tocar_musica(MUSICA_CHEFE);
                 combate(jogador, &BOSS);
+                
                 printf("\nAo vencê-lo, Elric descobre a verdade: ele mesmo é o genocida, o Cavaleiro Maldito.\n");
                 printf("Fim da jornada.\n");
+                
                 boss_encountered = true;
             }
         default:
@@ -197,14 +208,11 @@ void cena3(Player *jogador) {
 
 void cena4(Player* jogador){
     clearScreen();
-    parar_musica();
-    tocar_musica_ambientacao();
 
     printf("Ao fim do confronto, Elric se vê diante de seu reflexo no espelho negro. Não é por esse caminho ao qual ele deve seguir, então ele se afasta lentamente e retorna a sala anterior.\n");
     printf("Ele percebe que a verdadeira batalha ainda está por vir.\n");
     printf("\n\nPressione enter para continuar ....");
     
-    getchar();
     getchar();
     
     cena3(jogador);
@@ -217,7 +225,7 @@ int main() {
 
     while(boss_encountered == false){ 
 
-        tocar_musica_ambientacao();
+        tocar_musica(MUSICA_AMBIENTACAO);
         Player jogador;
         jogador = inicializarJogador();
 

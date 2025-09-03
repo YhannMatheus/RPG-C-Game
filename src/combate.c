@@ -36,6 +36,7 @@ void combate(Player *jogador, Inimigo *inimigo) {
         int choice;
         
         scanf("%d", &choice);
+        getchar(); // consome o '\n' deixado pelo scanf
         
         switch (choice) {
             case 1:
@@ -74,11 +75,8 @@ void combate(Player *jogador, Inimigo *inimigo) {
             cooldownLight(jogador);
         }
 
-        parar_musica();
-        clearScreen();
         
         printf("\n\nPressione enter para continuar");
-        getchar();
         getchar();
     }
     

@@ -60,11 +60,11 @@ Player inicializarJogador() {
     jogador.hp = 100;
     jogador.maxHp = 100;
     jogador.dano = 20;
-    jogador.chanceOfHit = 75;
+    jogador.chanceOfHit = 60;
     jogador.inDefence1 = false;
     jogador.inDefence2 = false;
     jogador.potionReleased = false;
-    jogador.potionQuantity = 3;
+    jogador.potionQuantity = 0;
     jogador.lightReleased = false;
     jogador.lightCooldown = 0;
     return jogador;
