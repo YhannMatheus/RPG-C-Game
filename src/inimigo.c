@@ -35,6 +35,19 @@ void enemyRegenerate(Inimigo *inimigo) {
     }
 }
 
+void enemyStunnedCont(Inimigo* inimigo){
+    if (inimigo->stuned) {
+        
+        inimigo->cooldownStun--;
+        printf("O inimigo está atordoado por %d turnos!\n", inimigo->cooldownStun);
+        
+        if (inimigo->cooldownStun == 0) {
+            inimigo->stuned = false;
+            printf("O inimigo se recuperou do stun!\n");
+        }
+    }
+}
+
 Inimigo* generateEnemy(char nome[50]){
     Inimigo *inimigo = malloc(sizeof(Inimigo));
     

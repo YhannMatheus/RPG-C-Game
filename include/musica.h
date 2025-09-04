@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include <pthread.h>
+#include <semaphore.h>
 
 // Enum para identificar as faixas
 typedef enum {
@@ -15,10 +17,8 @@ typedef enum {
 // Inicializa o sistema de áudio
 int inicializar_audio();
 
-// Funções para tocar cada faixa em loop
-void tocar_musica_chefe();
-void tocar_musica_ambientacao();
-void tocar_musica_combate();
+// Função única para tocar qualquer faixa
+void tocar_musica(TipoMusica tipo);
 
 // Para a música atual
 void parar_musica();

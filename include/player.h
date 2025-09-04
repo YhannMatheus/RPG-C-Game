@@ -7,9 +7,20 @@
 
 typedef struct {
     int hp;
+    int maxHp;
     int dano;
+
+    int potionQuantity;
+    bool potionReleased;
+
+    bool lightReleased;
+    int lightCooldown;
+
     bool inDefence1;
     bool inDefence2;
+
+    int chanceOfHit;
+
 } Player;
 
 typedef struct Inimigo Inimigo;
@@ -21,5 +32,11 @@ void defense(Player *jogador);
 bool isPlayerAlive(Player *jogador);
 
 void heal(Player *jogador);
+
+void cooldownLight(Player* jogador);
+
+void useLight(Player* jogador, Inimigo* inimigo);
+
+Player inicializarJogador();
 
 #endif // PLAYER_H

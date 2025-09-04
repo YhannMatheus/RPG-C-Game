@@ -7,11 +7,11 @@
 
 void attack(Player *jogador, Inimigo *inimigo) {
     
-    if (inimigo->hp <= 0) {
+    if (inimigo-> hp <= 0) {
         printf("\n%s foi derrotado!\n", inimigo->nome);
     }
 
-    if(rand() % 100 > 60){
+    if(rand() % 100 < jogador -> chanceOfHit){
         inimigo -> hp -= jogador -> dano;
         printf("\nO jogador ataca %s e causa %d de dano!\n", inimigo -> nome, jogador -> dano);
     }else{
@@ -30,16 +30,42 @@ void defense(Player *jogador) {
     }
 }
 
+void useLight(Player* jogador, Inimigo* inimigo) {
+    inimigo -> stuned = true;
+    jogador -> lightCooldown = 3;
+}
+
+void cooldownLight(Player* jogador) {
+    if (jogador->lightCooldown > 0) {
+        jogador->lightCooldown--;
+    }
+}
+
 bool isPlayerAlive(Player *jogador) {
     return jogador->hp > 0;
 }
 
 void heal(Player *jogador){
-    if(jogador->hp > 0){
-        jogador->hp += 10;
+    if(jogador -> hp > 0){
+        jogador -> hp += 10;
         printf("\nO jogador se cura em 10 pontos de vida!\n");
     }
-    if(jogador -> hp > 100){
-        jogador -> hp = 100;
+    if(jogador -> hp > jogador -> maxHp){
+        jogador -> hp = jogador -> maxHp;
     }
+}
+
+Player inicializarJogador() {
+    Player jogador;
+    jogador.hp = 100;
+    jogador.maxHp = 100;
+    jogador.dano = 20;
+    jogador.chanceOfHit = 60;
+    jogador.inDefence1 = false;
+    jogador.inDefence2 = false;
+    jogador.potionReleased = false;
+    jogador.potionQuantity = 0;
+    jogador.lightReleased = false;
+    jogador.lightCooldown = 0;
+    return jogador;
 }

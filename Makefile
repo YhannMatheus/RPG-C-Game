@@ -36,8 +36,19 @@ else
 	bash setup_dependencies.sh
 endif
 
-all: deps
-	$(CC) $(OBJECTS) -o $@ $(LDFLAGS)
+SRC = src/main.c src/player.c src/inimigo.c src/combate.c src/utils.c src/musica.c src/input_manager.c
+BIN = bin/rpg_game
+
+all:
+	$(CC) -Iinclude $(SRC) -o $(BIN) $(shell pkg-config --cflags --libs sdl2 SDL2_mixer) -lpthread
+
+run: all
+	./$(BIN)
+
+clean:
+	rm -f $(BIN)
+
+.PHONY: all run clean
 
 # Regra para criar o executável final
 $(BIN_DIR)/$(TARGET): $(OBJECTS)
