@@ -220,9 +220,13 @@ void cena4(Player* jogador){
 
 int main() {
     clearScreen();
-    inicializar_audio();
     
-
+    // Inicializa sistema de áudio com threads
+    if (!inicializar_audio()) {
+        printf("Erro ao inicializar áudio!\n");
+        return 1;
+    }
+    
     while(boss_encountered == false){ 
 
         tocar_musica(MUSICA_AMBIENTACAO);
@@ -254,6 +258,10 @@ int main() {
             break;
         }
     }
+    
+    // Finaliza sistema de áudio e threads
     parar_musica();
+    limpar_audio();
+    
     return 0;
 }

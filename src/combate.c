@@ -4,6 +4,7 @@
 #include "inimigo.h"
 #include "utils.h"
 #include "musica.h"
+#include "input_manager.h"
 
 void combatMenu(Inimigo *inimigo, Player *jogador) {
     printf("==============================\n");
@@ -28,15 +29,16 @@ void combate(Player *jogador, Inimigo *inimigo) {
     
     printf("Pressione enter para iniciar...");
     getchar();
+    
+    // Inicializa gerenciador de entrada para o combate
+    inicializar_input_manager();
 
     while (jogador->hp > 0 && inimigo->hp > 0) {
         clearScreen();
         combatMenu(inimigo, jogador);
         
-        int choice;
-        
-        scanf("%d", &choice);
-        getchar(); // consome o '\n' deixado pelo scanf
+        // Usa entrada assíncrona
+        int choice = aguardar_entrada_combate();
         
         switch (choice) {
             case 1:
@@ -80,4 +82,6 @@ void combate(Player *jogador, Inimigo *inimigo) {
         getchar();
     }
     
+    // Finaliza gerenciador de entrada
+    finalizar_input_manager();
 }

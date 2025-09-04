@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include <pthread.h>
+#include <semaphore.h>
 
 // Enum para identificar as faixas
 typedef enum {
